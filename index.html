@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Paymore V9.1</title>
+  
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PayMore Pro - Secure UPI Payments</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --accent: #10b981;
+            --success: #22c55e;
+            --error: #ef4444;
+            --background: #ffffff;
+            --text: #1e293b;
+            --text-light: #64748b;
+            --surface: #f8fafc;
+            --border: #e2e8f0;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            
+            /* Dark mode variables */
+            --dark-background: #0f172a;
+            --dark-text: #f8fafc;
+            --dark-surface: #1e293b;
+            --dark-border: #334155;
+        }
+
+        @keyframes gradientFlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            background: var(--background);
+            color: var(--text);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 480px;
+            background: var(--surface);
+            border-radius: 24px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            margin: 1rem;
+            position: relative;
+            border: 1px solid var(--border);
+        }
+
+        /* Dark Mode Toggle */
+        .theme-toggle {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: rotate(180deg);
+        }
+
+        /* Header Section */
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .logo {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: var(--text);
+            margin-bottom: 1.5rem;
+        }
+
+        .logo-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            box-shadow: 0 2px 8px rgba(99, 102, 241, 0.2);
+        }
+
+        .header p {
+            color: var(--text-light);
+            margin-top: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        /* Input Section */
+        .input-section {
+            background: var(--background);
+            padding: 1.5rem;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            margin-bottom: 1.5rem;
+        }
+
+        .input-group {
+            margin-bottom: 1.5rem;
+            margin-left: 0; /* Adjusted alignment */
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 0.875rem;
+            color: var(--text-light);
+            margin-bottom: 0.5rem;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 0.875rem;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            font-size: 1rem;
+            background: var(--surface);
+            color: var(--text);
+            transition: all 0.3s ease;
+        }
+
+        .input-group input:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+
+        /* QR Code Section */
+        .qr-section {
+            margin: 2rem 0;
+            display: none;
+        }
+
+        .qr-section.active {
+            display: block;
+        }
+
+        .qr-frame {
+            padding: 2rem;
+            background: var(--background);
+            border-radius: 20px;
+            border: 2px dashed var(--primary);
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .qr-frame::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, 
+                transparent 45%, 
+                rgba(99, 102, 241, 0.1) 50%, 
+                transparent 55%);
+            animation: gradientFlow 6s linear infinite;
+        }
+
+        /* Payment Details Section */
+        .payment-details {
+            background: var(--background);
+            padding: 1.5rem;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            margin-top: 1.5rem;
+            display: none;
+            position: relative;
+        }
+
+        .payment-details.active {
+            display: block;
+        }
+
+        .details-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .detail-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .detail-label {
+            font-size: 0.875rem;
+            color: var(--text-light);
+            font-weight: 500;
+        }
+
+        .detail-value {
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        /* Buttons */
+        .btn-group {
+            display: grid;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .btn-group.horizontal {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .btn {
+            padding: 1rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            box-shadow: 0 4px 6px rgba(99, 102, 241, 0.1);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(99, 102, 241, 0.2);
+        }
+
+        .btn-secondary {
+            background: var(--surface);
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(99, 102, 241, 0.05);
+        }
+
+        .btn-small {
+            padding: 0.5rem 1rem;
+            font-size: 0.875rem;
+        }
+
+        /* Dark Mode Styles */
+        body.dark-mode {
+            --background: var(--dark-background);
+            --text: var(--dark-text);
+            --surface: var(--dark-surface);
+            --border: var(--dark-border);
+            --text-light: #94a3b8;
+        }
+
+        /* Additional Info Section */
+        .info-section {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: var(--background);
+            border-radius: 16px;
+            border: 1px solid var(--border);
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.75rem 0;
+        }
+
+        .info-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            background: rgba(99, 102, 241, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+        }
+
+        .info-text {
+            flex: 1;
+        }
+
+        .info-title {
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .info-description {
+            font-size: 0.875rem;
+            color: var(--text-light);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme-toggle" onclick="toggleTheme()">
+            <i class="fas fa-moon"></i>
+        </div>
+
+        <div class="header">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                PayMore Pro
+            </div>
+            <p>Experience seamless and secure UPI payments with PayMore Pro. Fast, reliable, and easy to use.</p>
+        </div>
+
+        <div class="input-section">
+            <div class="input-group">
+                <label for="sender-name">Your Full Name</label>
+                <input type="text" id="sender-name" placeholder="Enter your name" required>
+            </div>
+            <div class="input-group">
+                <label for="amount">Payment Amount (₹)</label>
+                <input type="number" id="amount" placeholder="Enter amount" min="1" required>
+            </div>
+        </div>
+
+        <div class="btn-group">
+            <button class="btn btn-primary" onclick="generateQRCode()">
+                <i class="fas fa-qrcode"></i>
+                Generate Secure QR
+            </button>
+        </div>
+
+        <div class="qr-section" id="qr-section">
+            <div class="qr-frame" id="qr-code">
+                <div class="qr-placeholder">
+                    <i class="fas fa-qrcode"></i>
+                    <p>QR Code Preview</p>
+                </div>
+            </div>
+            <div class="btn-group horizontal">
+                <button class="btn btn-secondary" onclick="saveQRCode()">
+                    <i class="fas fa-download"></i>
+                    Download QR
+                </button>
+                <button class="btn btn-primary" onclick="redirectToUPI()">
+                    <i class="fas fa-wallet"></i>
+                    Pay Now
+                </button>
+            </div>
+        </div>
+
+        <div class="payment-details" id="payment-details">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <h3>Transaction Details</h3>
+                <button class="btn btn-small btn-secondary" onclick="captureScreenshot()">
+                    <i class="fas fa-camera"></i>
+                    Save as Invoice
+                </button>
+            </div>
+            <div class="details-grid">
+                <div class="detail-item">
+                    <span class="detail-label">Amount</span>
+                    <span class="detail-value" id="info-amount">₹0.00</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">Transaction ID</span>
+                    <span class="detail-value" id="info-txid">N/A</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">Sender Name</span>
+                    <span class="detail-value" id="info-sender">N/A</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">Timestamp</span>
+                    <span class="detail-value" id="info-time">N/A</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-section">
+            <div class="info-item">
+                <div class="info-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <div class="info-text">
+                    <div class="info-title">Secure Payments</div>
+                    <div class="info-description">All transactions are encrypted and secure</div>
+                </div>
+            </div>
+            <div class="info-item">
+                <div class="info-icon">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <div class="info-text">
+                    <div class="info-title">Instant Processing</div>
+                    <div class="info-description">Real-time payment processing</div>
+                </div>
+            </div>
+            <div class="info-item">
+                <div class="info-icon">
+                    <i class="fas fa-rupee-sign"></i>
+                </div>
+                <div class="info-text">
+                    <div class="info-title">No Hidden Fees</div>
+                    <div class="info-description">Transparent pricing with no extra charges</div>
+                </div>
+            </div>
+            <div class="info-item">
+                <div class="info-icon">
+                    <i class="fas fa-mobile-alt"></i>
+                </div>
+                <div class="info-text">
+                    <div class="info-title">Mobile-Friendly</div>
+                    <div class="info-description">Optimized for seamless mobile payments</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script>
+        let currentQR = null;
+        let isDarkMode = false;
+
+        function toggleTheme() {
+            isDarkMode = !isDarkMode;
+            document.body.classList.toggle('dark-mode');
+            document.querySelector('.theme-toggle i').classList = 
+                isDarkMode ? 'fas fa-sun' : 'fas fa-moon';
+        }
+
+        function generateQRCode() {
+            const name = document.getElementById('sender-name').value.trim();
+            const amount = document.getElementById('amount').value;
+
+            if (!name || !amount) {
+                alert('Please fill all required fields');
+                return;
+            }
+
+            // Generate transaction details
+            const txid = `TX${Date.now().toString().slice(-8)}`;
+            const timestamp = new Date().toLocaleString();
+
+            document.getElementById('info-amount').textContent = `₹${amount}`;
+            document.getElementById('info-txid').textContent = txid;
+            document.getElementById('info-sender').textContent = name;
+            document.getElementById('info-time').textContent = timestamp;
+
+            const upiLink = `upi://pay?pa=9351044618@mbk&pn=PayMore&am=${amount}&cu=INR&tn=Payment by ${encodeURIComponent(name)}`;
+            
+            const qrContainer = document.getElementById('qr-code');
+            qrContainer.innerHTML = '';
+            currentQR = new QRCode(qrContainer, {
+                text: upiLink,
+                width: 200,
+                height: 200,
+                colorDark: isDarkMode ? "#f8fafc" : "#1e293b",
+                colorLight: "transparent",
+                correctLevel: QRCode.CorrectLevel.H
+            });
+
+            // Show hidden sections
+            document.getElementById('qr-section').classList.add('active');
+            document.getElementById('payment-details').classList.add('active');
+        }
+
+        function redirectToUPI() {
+            if (currentQR) {
+                window.location.href = currentQR._htOption.text;
+            } else {
+                alert('Please generate QR code first');
+            }
+        }
+
+        function saveQRCode() {
+            const qrImage = document.querySelector('#qr-code img');
+            if (qrImage) {
+                const link = document.createElement('a');
+                link.download = 'PayMore-Payment-QR.png';
+                link.href = qrImage.src;
+                link.click();
+            } else {
+                alert('Generate QR code first');
+            }
+        }
+
+        function captureScreenshot() {
+            const txid = document.getElementById('info-txid').textContent;
+            if (txid === "N/A") {
+                alert("Generate a transaction first!");
+                return;
+            }
+
+            html2canvas(document.querySelector(".container")).then(canvas => {
+                const ctx = canvas.getContext('2d');
+                // Add watermark
+                ctx.font = '20px Arial';
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
+                ctx.textAlign = 'center';
+                ctx.fillText(`Transaction ID: ${txid}`, canvas.width / 2, canvas.height - 20);
+
+                // Download the image
+                const link = document.createElement('a');
+                link.download = `PayMore-Invoice-${txid}.png`;
+                link.href = canvas.toDataURL();
+                link.click();
+            });
+        }
+    </script>
+</body>
+</html>
+<!-- partial -->
+  
+</body>
+</html>
