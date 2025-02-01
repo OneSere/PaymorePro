@@ -2,7 +2,7 @@
 <html lang="en" >
 <head>
   <meta charset="UTF-8">
-  <title>Paymore V9.1</title>
+  <title>Paymore v9.2</title>
   
 
 </head>
@@ -28,12 +28,6 @@
             --surface: #f8fafc;
             --border: #e2e8f0;
             --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-            
-            /* Dark mode variables */
-            --dark-background: #0f172a;
-            --dark-text: #f8fafc;
-            --dark-surface: #1e293b;
-            --dark-border: #334155;
         }
 
         @keyframes gradientFlow {
@@ -65,27 +59,6 @@
             margin: 1rem;
             position: relative;
             border: 1px solid var(--border);
-        }
-
-        /* Dark Mode Toggle */
-        .theme-toggle {
-            position: absolute;
-            top: 1.5rem;
-            right: 1.5rem;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: var(--surface);
-            border: 1px solid var(--border);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-        }
-
-        .theme-toggle:hover {
-            transform: rotate(180deg);
         }
 
         /* Header Section */
@@ -134,7 +107,7 @@
 
         .input-group {
             margin-bottom: 1.5rem;
-            margin-left: 0; /* Adjusted alignment */
+            margin-left: 0;
         }
 
         .input-group label {
@@ -288,13 +261,19 @@
             font-size: 0.875rem;
         }
 
-        /* Dark Mode Styles */
-        body.dark-mode {
-            --background: var(--dark-background);
-            --text: var(--dark-text);
-            --surface: var(--dark-surface);
-            --border: var(--dark-border);
-            --text-light: #94a3b8;
+        /* Highlighted Text with Arrow */
+        .highlight-text {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--success);
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .highlight-text:hover {
+            text-decoration: underline;
         }
 
         /* Additional Info Section */
@@ -337,14 +316,30 @@
             font-size: 0.875rem;
             color: var(--text-light);
         }
+
+        .custom-info-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .custom-info-item .info-icon {
+            background: rgba(34, 197, 94, 0.1);
+            color: var(--success);
+        }
+
+        .custom-info-item .info-text {
+            flex: 1;
+        }
+
+        .custom-info-item .info-title {
+            font-size: 1rem;
+            margin-bottom: 0.25rem;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="theme-toggle" onclick="toggleTheme()">
-            <i class="fas fa-moon"></i>
-        </div>
-
         <div class="header">
             <div class="logo">
                 <div class="logo-icon">
@@ -448,13 +443,15 @@
                     <div class="info-description">Transparent pricing with no extra charges</div>
                 </div>
             </div>
-            <div class="info-item">
+            <div class="custom-info-item">
                 <div class="info-icon">
-                    <i class="fas fa-mobile-alt"></i>
+                    <i class="fas fa-link"></i>
                 </div>
                 <div class="info-text">
-                    <div class="info-title">Mobile-Friendly</div>
-                    <div class="info-description">Optimized for seamless mobile payments</div>
+                    <div class="info-title">Want your Own Payment Page?</div>
+                    <a href="https://t.me/curiosityandyou" class="highlight-text">
+                        Get Started <i class="fas fa-arrow-right"></i>
+                    </a>
                 </div>
             </div>
         </div>
@@ -464,14 +461,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script>
         let currentQR = null;
-        let isDarkMode = false;
-
-        function toggleTheme() {
-            isDarkMode = !isDarkMode;
-            document.body.classList.toggle('dark-mode');
-            document.querySelector('.theme-toggle i').classList = 
-                isDarkMode ? 'fas fa-sun' : 'fas fa-moon';
-        }
 
         function generateQRCode() {
             const name = document.getElementById('sender-name').value.trim();
@@ -499,7 +488,7 @@
                 text: upiLink,
                 width: 200,
                 height: 200,
-                colorDark: isDarkMode ? "#f8fafc" : "#1e293b",
+                colorDark: "#1e293b",
                 colorLight: "transparent",
                 correctLevel: QRCode.CorrectLevel.H
             });
@@ -536,7 +525,8 @@
                 return;
             }
 
-            html2canvas(document.querySelector(".container")).then(canvas => {
+            const element = document.getElementById('payment-details');
+            html2canvas(element).then(canvas => {
                 const ctx = canvas.getContext('2d');
                 // Add watermark
                 ctx.font = '20px Arial';
