@@ -2,7 +2,7 @@
 <html lang="en" >
 <head>
   <meta charset="UTF-8">
-  <title>Paymore v9.2</title>
+  <title>Paymore v9.4</title>
   
 
 </head>
@@ -13,330 +13,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PayMore Pro - Secure UPI Payments</title>
+    <title>PayMore Pro v9.4 - Secure UPI Payments</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root {
-            --primary: #6366f1;
-            --primary-dark: #4f46e5;
-            --accent: #10b981;
-            --success: #22c55e;
-            --error: #ef4444;
-            --background: #ffffff;
-            --text: #1e293b;
-            --text-light: #64748b;
-            --surface: #f8fafc;
-            --border: #e2e8f0;
-            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-        }
-
-        @keyframes gradientFlow {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        body {
-            font-family: 'Inter', system-ui, sans-serif;
-            background: var(--background);
-            color: var(--text);
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .container {
-            width: 100%;
-            max-width: 480px;
-            background: var(--surface);
-            border-radius: 24px;
-            padding: 2rem;
-            box-shadow: var(--shadow);
-            margin: 1rem;
-            position: relative;
-            border: 1px solid var(--border);
-        }
-
-        /* Header Section */
-        .header {
-            text-align: center;
-            margin-bottom: 2rem;
-            position: relative;
-        }
-
-        .logo {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.75rem;
-            font-size: 1.75rem;
-            font-weight: 800;
-            color: var(--text);
-            margin-bottom: 1.5rem;
-        }
-
-        .logo-icon {
-            width: 48px;
-            height: 48px;
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            box-shadow: 0 2px 8px rgba(99, 102, 241, 0.2);
-        }
-
-        .header p {
-            color: var(--text-light);
-            margin-top: 0.5rem;
-            font-size: 0.95rem;
-        }
-
-        /* Input Section */
-        .input-section {
-            background: var(--background);
-            padding: 1.5rem;
-            border-radius: 16px;
-            border: 1px solid var(--border);
-            margin-bottom: 1.5rem;
-        }
-
-        .input-group {
-            margin-bottom: 1.5rem;
-            margin-left: 0;
-        }
-
-        .input-group label {
-            display: block;
-            font-size: 0.875rem;
-            color: var(--text-light);
-            margin-bottom: 0.5rem;
-        }
-
-        .input-group input {
-            width: 100%;
-            padding: 0.875rem;
-            border: 2px solid var(--border);
-            border-radius: 12px;
-            font-size: 1rem;
-            background: var(--surface);
-            color: var(--text);
-            transition: all 0.3s ease;
-        }
-
-        .input-group input:focus {
-            border-color: var(--primary);
-            outline: none;
-            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
-        }
-
-        /* QR Code Section */
-        .qr-section {
-            margin: 2rem 0;
-            display: none;
-        }
-
-        .qr-section.active {
-            display: block;
-        }
-
-        .qr-frame {
-            padding: 2rem;
-            background: var(--background);
-            border-radius: 20px;
-            border: 2px dashed var(--primary);
-            position: relative;
-            overflow: hidden;
-            text-align: center;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .qr-frame::before {
-            content: "";
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, 
-                transparent 45%, 
-                rgba(99, 102, 241, 0.1) 50%, 
-                transparent 55%);
-            animation: gradientFlow 6s linear infinite;
-        }
-
-        /* Payment Details Section */
-        .payment-details {
-            background: var(--background);
-            padding: 1.5rem;
-            border-radius: 16px;
-            border: 1px solid var(--border);
-            margin-top: 1.5rem;
-            display: none;
-            position: relative;
-        }
-
-        .payment-details.active {
-            display: block;
-        }
-
-        .details-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-
-        .detail-item {
-            display: flex;
-            flex-direction: column;
-            gap: 0.25rem;
-        }
-
-        .detail-label {
-            font-size: 0.875rem;
-            color: var(--text-light);
-            font-weight: 500;
-        }
-
-        .detail-value {
-            font-weight: 600;
-            color: var(--text);
-        }
-
-        /* Buttons */
-        .btn-group {
-            display: grid;
-            gap: 1rem;
-            margin-top: 2rem;
-        }
-
-        .btn-group.horizontal {
-            grid-template-columns: repeat(2, 1fr);
-        }
-
-        .btn {
-            padding: 1rem 1.5rem;
-            font-size: 1rem;
-            font-weight: 600;
-            border: none;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.75rem;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            color: white;
-            box-shadow: 0 4px 6px rgba(99, 102, 241, 0.1);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(99, 102, 241, 0.2);
-        }
-
-        .btn-secondary {
-            background: var(--surface);
-            color: var(--text);
-            border: 1px solid var(--border);
-        }
-
-        .btn-secondary:hover {
-            background: rgba(99, 102, 241, 0.05);
-        }
-
-        .btn-small {
-            padding: 0.5rem 1rem;
-            font-size: 0.875rem;
-        }
-
-        /* Highlighted Text with Arrow */
-        .highlight-text {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: var(--success);
-            font-weight: 600;
-            cursor: pointer;
-            text-decoration: none;
-        }
-
-        .highlight-text:hover {
-            text-decoration: underline;
-        }
-
-        /* Additional Info Section */
-        .info-section {
-            margin-top: 2rem;
-            padding: 1.5rem;
-            background: var(--background);
-            border-radius: 16px;
-            border: 1px solid var(--border);
-        }
-
-        .info-item {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            padding: 0.75rem 0;
-        }
-
-        .info-icon {
-            width: 32px;
-            height: 32px;
-            border-radius: 8px;
-            background: rgba(99, 102, 241, 0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--primary);
-        }
-
-        .info-text {
-            flex: 1;
-        }
-
-        .info-title {
-            font-weight: 600;
-            color: var(--text);
-        }
-
-        .info-description {
-            font-size: 0.875rem;
-            color: var(--text-light);
-        }
-
-        .custom-info-item {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .custom-info-item .info-icon {
-            background: rgba(34, 197, 94, 0.1);
-            color: var(--success);
-        }
-
-        .custom-info-item .info-text {
-            flex: 1;
-        }
-
-        .custom-info-item .info-title {
-            font-size: 1rem;
-            margin-bottom: 0.25rem;
-        }
+        :root{--primary:#6366f1;--primary-dark:#4f46e5;--accent:#10b981;--success:#22c55e;--error:#ef4444;--background:#ffffff;--text:#1e293b;--text-light:#64748b;--surface:#f8fafc;--border:#e2e8f0;--shadow:0 4px 6px -1px rgba(0,0,0,0.1)}body{font-family:'Inter',system-ui,sans-serif;background:var(--background);color:var(--text);margin:0;padding:0;display:flex;justify-content:center;align-items:center;min-height:100vh;transition:all 0.4s cubic-bezier(0.4,0,0.2,1)}.container{width:100%;max-width:480px;background:var(--surface);border-radius:24px;padding:2rem;box-shadow:var(--shadow);margin:1rem;position:relative;border:1px solid var(--border)}.header{text-align:center;margin-bottom:2rem;position:relative}.logo{display:inline-flex;align-items:center;gap:0.75rem;font-size:1.75rem;font-weight:800;color:var(--text);margin-bottom:1.5rem}.logo-icon{width:48px;height:48px;background:linear-gradient(135deg,var(--primary),var(--primary-dark));border-radius:12px;display:flex;align-items:center;justify-content:center;color:white;box-shadow:0 2px 8px rgba(99,102,241,0.2)}.header p{color:var(--text-light);margin-top:0.5rem;font-size:0.95rem}.input-section{background:var(--background);padding:1.5rem;border-radius:16px;border:1px solid var(--border);margin-bottom:1.5rem}.input-group{margin-bottom:1.5rem;margin-left:0}.input-group label{display:block;font-size:0.875rem;color:var(--text-light);margin-bottom:0.5rem}.input-group input{width:100%;padding:0.875rem;border:2px solid var(--border);border-radius:12px;font-size:1rem;background:var(--surface);color:var(--text);transition:all 0.3s ease}.input-group input:focus{border-color:var(--primary);outline:none;box-shadow:0 0 0 3px rgba(99,102,241,0.1)}.qr-section{margin:2rem 0;display:none}.qr-section.active{display:block}.qr-frame{padding:2rem;background:var(--background);border-radius:20px;border:2px dashed var(--primary);position:relative;overflow:hidden;text-align:center;display:flex;justify-content:center;align-items:center}.qr-frame::before{content:"";position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:linear-gradient(45deg,transparent 45%,rgba(99,102,241,0.1) 50%,transparent 55%);animation:gradientFlow 6s linear infinite}@keyframes gradientFlow{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}.payment-details{background:var(--background);padding:1.5rem;border-radius:16px;border:1px solid var(--border);margin-top:1.5rem;display:none;position:relative}.payment-details.active{display:block}.details-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;margin-top:1rem}.detail-item{display:flex;flex-direction:column;gap:0.25rem}.detail-label{font-size:0.875rem;color:var(--text-light);font-weight:500}.detail-value{font-weight:600;color:var(--text)}.btn-group{display:grid;gap:1rem;margin-top:2rem}.btn-group.horizontal{grid-template-columns:repeat(2,1fr)}.btn{padding:1rem 1.5rem;font-size:1rem;font-weight:600;border:none;border-radius:12px;cursor:pointer;transition:all 0.3s ease;display:flex;align-items:center;justify-content:center;gap:0.75rem}.btn-primary{background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:white;box-shadow:0 4px 6px rgba(99,102,241,0.1)}.btn-primary:hover{transform:translateY(-2px);box-shadow:0 6px 12px rgba(99,102,241,0.2)}.btn-secondary{background:var(--surface);color:var(--text);border:1px solid var(--border)}.btn-secondary:hover{background:rgba(99,102,241,0.05)}.btn-small{padding:0.5rem 1rem;font-size:0.875rem}.highlight-text{display:inline-flex;align-items:center;gap:0.5rem;color:var(--success);font-weight:600;cursor:pointer;text-decoration:none}.highlight-text:hover{text-decoration:underline}.info-section{margin-top:2rem;padding:1.5rem;background:var(--background);border-radius:16px;border:1px solid var(--border)}.info-item{display:flex;align-items:center;gap:1rem;padding:0.75rem 0}.info-icon{width:32px;height:32px;border-radius:8px;background:rgba(99,102,241,0.1);display:flex;align-items:center;justify-content:center;color:var(--primary)}.info-text{flex:1}.info-title{font-weight:600;color:var(--text)}.info-description{font-size:0.875rem;color:var(--text-light)}.custom-info-item{display:flex;align-items:center;gap:1rem}.custom-info-item .info-icon{background:rgba(34,197,94,0.1);color:var(--success)}.custom-info-item .info-text{flex:1}.custom-info-item .info-title{font-size:1rem;margin-bottom:0.25rem}.calligraphy{font-family:'Dancing Script',cursive;font-size:1.5rem;color:var(--primary);text-align:center;margin-top:1rem}.version{font-size:0.875rem;color:var(--text-light);text-align:center;margin-top:0.5rem}
     </style>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="container">
@@ -347,7 +29,9 @@
                 </div>
                 PayMore Pro
             </div>
+            <div class="version">v9.4</div>
             <p>Experience seamless and secure UPI payments with PayMore Pro. Fast, reliable, and easy to use.</p>
+            <div class="calligraphy">"Your Trust, Our Priority"</div>
         </div>
 
         <div class="input-section">
@@ -383,6 +67,12 @@
                 <button class="btn btn-primary" onclick="redirectToUPI()">
                     <i class="fas fa-wallet"></i>
                     Pay Now
+                </button>
+            </div>
+            <div class="btn-group">
+                <button class="btn btn-primary" onclick="verifyPayment()">
+                    <i class="fas fa-check-circle"></i>
+                    Verify Payment
                 </button>
             </div>
         </div>
@@ -460,87 +150,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script>
-        let currentQR = null;
-
-        function generateQRCode() {
-            const name = document.getElementById('sender-name').value.trim();
-            const amount = document.getElementById('amount').value;
-
-            if (!name || !amount) {
-                alert('Please fill all required fields');
-                return;
-            }
-
-            // Generate transaction details
-            const txid = `TX${Date.now().toString().slice(-8)}`;
-            const timestamp = new Date().toLocaleString();
-
-            document.getElementById('info-amount').textContent = `₹${amount}`;
-            document.getElementById('info-txid').textContent = txid;
-            document.getElementById('info-sender').textContent = name;
-            document.getElementById('info-time').textContent = timestamp;
-
-            const upiLink = `upi://pay?pa=9351044618@mbk&pn=PayMore&am=${amount}&cu=INR&tn=Payment by ${encodeURIComponent(name)}`;
-            
-            const qrContainer = document.getElementById('qr-code');
-            qrContainer.innerHTML = '';
-            currentQR = new QRCode(qrContainer, {
-                text: upiLink,
-                width: 200,
-                height: 200,
-                colorDark: "#1e293b",
-                colorLight: "transparent",
-                correctLevel: QRCode.CorrectLevel.H
-            });
-
-            // Show hidden sections
-            document.getElementById('qr-section').classList.add('active');
-            document.getElementById('payment-details').classList.add('active');
-        }
-
-        function redirectToUPI() {
-            if (currentQR) {
-                window.location.href = currentQR._htOption.text;
-            } else {
-                alert('Please generate QR code first');
-            }
-        }
-
-        function saveQRCode() {
-            const qrImage = document.querySelector('#qr-code img');
-            if (qrImage) {
-                const link = document.createElement('a');
-                link.download = 'PayMore-Payment-QR.png';
-                link.href = qrImage.src;
-                link.click();
-            } else {
-                alert('Generate QR code first');
-            }
-        }
-
-        function captureScreenshot() {
-            const txid = document.getElementById('info-txid').textContent;
-            if (txid === "N/A") {
-                alert("Generate a transaction first!");
-                return;
-            }
-
-            const element = document.getElementById('payment-details');
-            html2canvas(element).then(canvas => {
-                const ctx = canvas.getContext('2d');
-                // Add watermark
-                ctx.font = '20px Arial';
-                ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
-                ctx.textAlign = 'center';
-                ctx.fillText(`Transaction ID: ${txid}`, canvas.width / 2, canvas.height - 20);
-
-                // Download the image
-                const link = document.createElement('a');
-                link.download = `PayMore-Invoice-${txid}.png`;
-                link.href = canvas.toDataURL();
-                link.click();
-            });
-        }
+        let currentQR=null;function generateQRCode(){const e=document.getElementById("sender-name").value.trim(),t=document.getElementById("amount").value;if(!e||!t)return void alert("Please fill all required fields");const n=`TX${Date.now().toString().slice(-8)}`,o=new Date().toLocaleString();document.getElementById("info-amount").textContent=`₹${t}`,document.getElementById("info-txid").textContent=n,document.getElementById("info-sender").textContent=e,document.getElementById("info-time").textContent=o;const a=`upi://pay?pa=9351044618@mbk&pn=PayMore&am=${t}&cu=INR&tn=Payment by ${encodeURIComponent(e)}`,c=document.getElementById("qr-code");c.innerHTML="",currentQR=new QRCode(c,{text:a,width:200,height:200,colorDark:"#1e293b",colorLight:"transparent",correctLevel:QRCode.CorrectLevel.H}),document.getElementById("qr-section").classList.add("active"),document.getElementById("payment-details").classList.add("active")}function verifyPayment(){const e=document.getElementById("info-amount").textContent,t=document.getElementById("info-txid").textContent,n=document.getElementById("info-sender").textContent,o=document.getElementById("info-time").textContent,a=`Transaction Details:\nAmount: ${e}\nTransaction ID: ${t}\nSender Name: ${n}\nTimestamp: ${o}`,c=`https://wa.me/919279030567?text=${encodeURIComponent(a)}`;window.open(c,"_blank")}function redirectToUPI(){currentQR?window.location.href=currentQR._htOption.text:alert("Please generate QR code first")}function saveQRCode(){const e=document.querySelector("#qr-code img");e?((e=document.createElement("a")).download="PayMore-Payment-QR.png",e.href=e.src,e.click()):alert("Generate QR code first")}function captureScreenshot(){const e=document.getElementById("info-txid").textContent;if("N/A"===e)return void alert("Generate a transaction first!");html2canvas(document.getElementById("payment-details")).then(e=>{const t=e.getContext("2d");t.font="20px Arial",t.fillStyle="rgba(0,0,0,0.5)",t.textAlign="center",t.fillText(`Transaction ID: ${e}`,e.width/2,e.height-20),((e=document.createElement("a")).download=`PayMore-Invoice-${e}.png`,e.href=e.toDataURL(),e.click())})}
     </script>
 </body>
 </html>
