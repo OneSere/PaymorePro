@@ -493,7 +493,7 @@
       const n = `TX${Date.now().toString().slice(-8)}`,
         o = new Date().toLocaleString();
       document.getElementById("info-amount").textContent = `₹${t}`, document.getElementById("info-txid").textContent = n, document.getElementById("info-sender").textContent = e, document.getElementById("info-time").textContent = o;
-      const a = `upi://pay?pa=9351044618@mbk&pn=PayMore&am=${t}&cu=INR&tn=Payment by ${encodeURIComponent(e)}`,
+      const a = `upi://pay?pa=9351044618@omni&pn=PayMore&am=${t}&cu=INR&tn=Payment by ${encodeURIComponent(e)}`,
         c = document.getElementById("qr-code");
       c.innerHTML = "", currentQR = new QRCode(c, {
         text: a,
