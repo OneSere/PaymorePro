@@ -1,5 +1,5 @@
 ---
-title: "❤️ Heart Attack Detection and Analysis Model"
+title: "❤️ Cardiovascular Risk Assessment and Heart Attack Prediction System"
 seoTitle: "AI Model for Heart Attack Detection"
 seoDescription: "Use OpenSere's XGBoost model for quick heart attack risk prediction using medical data, ideal for low-resource settings"
 datePublished: Fri May 23 2025 02:47:36 GMT+0000 (Coordinated Universal Time)
